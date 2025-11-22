@@ -1,7 +1,7 @@
 # AWS S3 + CloudFront + GitHub Actions (OIDC) 構築メモ
 
-**作成日:** 2025-11-22
-**目的:** AWS S3とCloudFrontを使用したセキュアな静的サイトホスティングと、GitHub Actions (OIDC) によるCI/CDパイプラインの構築。
+- **作成日:** 2025-11-22
+- **目的:** AWS S3とCloudFrontを使用したセキュアな静的サイトホスティングと、GitHub Actions (OIDC) によるCI/CDパイプラインの構築。
 
 ## 🏗 アーキテクチャ構成 (Level 1.5)
 
@@ -76,7 +76,7 @@ graph LR
 
 ### コスト最適化
 *   **データ転送量:** S3直接公開（従量課金）からCloudFront経由（月1TBまで無料）に変更することでコストを削減。
-*   **WAF:** 個人検証用のため無効化し、固定費 ($5/月?) を回避。
+*   **WAF:** 個人検証用のため無効化し、固定費 ($5/月) を回避。
 
 ---
 
@@ -85,7 +85,7 @@ graph LR
 不要になったら以下の順序で削除してください。
 
 1. **CloudFront & Route 53**
-   * Route 53 の A,AAAAレコード (`lab`) を削除。
+   * Route 53 の Aレコード (`lab`) を削除。
    * CloudFront ディストリビューションを **Disable (無効化)** してから **Delete (削除)**。
    * ACM 証明書 (`us-east-1`) を削除。
 
