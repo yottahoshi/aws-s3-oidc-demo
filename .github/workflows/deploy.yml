@@ -21,9 +21,17 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ap-northeast-1
-
+      
+      # S3への同期
       - name: Sync to S3
         env:
           BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
         run: |
           aws s3 sync . s3://$BUCKET_NAME --delete --exclude ".git/*" --exclude ".github/*"
+
+      # CloudFrontのキャッシュ削除
+      - name: Invalidate CloudFront Cache
+        env:
+          DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
